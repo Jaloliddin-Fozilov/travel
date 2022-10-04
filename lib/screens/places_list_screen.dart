@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel/screens/add_place_screen.dart';
 
 class PlacesListScreen extends StatelessWidget {
   const PlacesListScreen({super.key});
@@ -10,7 +11,8 @@ class PlacesListScreen extends StatelessWidget {
         title: const Text('Sayohat'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () =>
+                Navigator.of(context).pushNamed(AddPlaceScreen.routName),
             icon: const Icon(Icons.add),
           ),
         ],
