@@ -17,6 +17,8 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
         title: const Text('Sayohat joyini qo\'shish'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ElevatedButton(
             onPressed: () {},
