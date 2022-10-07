@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddPlaceScreen extends StatefulWidget {
   const AddPlaceScreen({super.key});
@@ -13,6 +14,19 @@ class AddPlaceScreen extends StatefulWidget {
 
 class _AddPlaceScreenState extends State<AddPlaceScreen> {
   File? _imageFile;
+  void _takePicture() async {
+    final imagePicker = ImagePicker();
+    final photo = await imagePicker.pickImage(
+      source: ImageSource.camera,
+      maxWidth: 600,
+    );
+    if (photo != null) {
+      setState(() {
+        _imageFile = File(photo.path);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,11 +61,15 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                     ),
                     alignment: Alignment.center,
                     child: _imageFile != null
-                        ? Image.file(_imageFile!)
+                        ? Image.file(
+                            _imageFile!,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                          )
                         : const Text('Rasm yuklanmagan'),
                   ),
                   TextButton.icon(
-                    onPressed: () {},
+                    onPressed: _takePicture,
                     icon: const Icon(Icons.image_search),
                     label: const Text('Rasm yuklash'),
                   )
@@ -62,6 +80,9 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
           ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0.0),
+              ),
               elevation: 0,
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               padding: const EdgeInsets.symmetric(vertical: 15),
