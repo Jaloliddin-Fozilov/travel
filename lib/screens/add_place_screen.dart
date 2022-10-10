@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:travel/widgets/image_input.dart';
 
 class AddPlaceScreen extends StatefulWidget {
   const AddPlaceScreen({super.key});
@@ -13,18 +14,10 @@ class AddPlaceScreen extends StatefulWidget {
 }
 
 class _AddPlaceScreenState extends State<AddPlaceScreen> {
-  File? _imageFile;
-  void _takePicture() async {
-    final imagePicker = ImagePicker();
-    final photo = await imagePicker.pickImage(
-      source: ImageSource.camera,
-      maxWidth: 600,
-    );
-    if (photo != null) {
-      setState(() {
-        _imageFile = File(photo.path);
-      });
-    }
+  File? _savedImage;
+
+  void _takeSavedImage(savedImage) {
+    _savedImage = savedImage;
   }
 
   @override
@@ -53,26 +46,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                     height: 20,
                     width: double.infinity,
                   ),
-                  Container(
-                    width: double.infinity,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 1, color: Colors.grey),
-                    ),
-                    alignment: Alignment.center,
-                    child: _imageFile != null
-                        ? Image.file(
-                            _imageFile!,
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                          )
-                        : const Text('Rasm yuklanmagan'),
-                  ),
-                  TextButton.icon(
-                    onPressed: _takePicture,
-                    icon: const Icon(Icons.image_search),
-                    label: const Text('Rasm yuklash'),
-                  )
+                  ImageInput(_takeSavedImage),
                 ],
               ),
             )),
