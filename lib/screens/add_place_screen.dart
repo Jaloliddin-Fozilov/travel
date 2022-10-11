@@ -15,6 +15,11 @@ class AddPlaceScreen extends StatefulWidget {
 
 class _AddPlaceScreenState extends State<AddPlaceScreen> {
   File? _savedImage;
+  final _formKey = GlobalKey<FormState>();
+
+  void _submit() {
+    if (_formKey.currentState!.validate() && _savedImage != null) {}
+  }
 
   void _takeSavedImage(savedImage) {
     _savedImage = savedImage;
@@ -33,26 +38,32 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Form(
+                key: _formKey,
                 child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Joy nomi',
-                      border: OutlineInputBorder(),
-                    ),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: 'Joy nomi',
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Iltimos, joy nomini kiring.';
+                          }
+                        },
+                      ),
+                      const SizedBox(
+                        height: 20,
+                        width: double.infinity,
+                      ),
+                      ImageInput(_takeSavedImage),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                    width: double.infinity,
-                  ),
-                  ImageInput(_takeSavedImage),
-                ],
-              ),
-            )),
+                )),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: _submit,
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(0.0),
