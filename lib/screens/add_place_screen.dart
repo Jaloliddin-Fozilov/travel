@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:travel/providers/places_provider.dart';
 import 'package:travel/widgets/image_input.dart';
 
 class AddPlaceScreen extends StatefulWidget {
-  const AddPlaceScreen({super.key});
+  AddPlaceScreen({super.key});
 
   static const routName = '/add-place';
 
@@ -16,18 +18,37 @@ class AddPlaceScreen extends StatefulWidget {
 class _AddPlaceScreenState extends State<AddPlaceScreen> {
   File? _savedImage;
   final _formKey = GlobalKey<FormState>();
+  String _title = '';
+
+  bool notImage = false;
 
   void _submit() {
-    if (_formKey.currentState!.validate() && _savedImage != null) {}
+    _takeSavedImage(_savedImage);
+    if (_formKey.currentState!.validate() && _savedImage != null) {
+      _formKey.currentState!.save();
+      Provider.of<PlacesProvider>(context, listen: false)
+          .addPlace(_title, _savedImage!);
+      Navigator.of(context).pop();
+    }
   }
 
   void _takeSavedImage(savedImage) {
-    _savedImage = savedImage;
+    if (savedImage != null) {
+      _savedImage = savedImage;
+      setState(() {
+        notImage = false;
+      });
+    } else {
+      setState(() {
+        notImage = true;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Sayohat joyini qo\'shish'),
       ),
@@ -52,12 +73,15 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                             return 'Iltimos, joy nomini kiring.';
                           }
                         },
+                        onSaved: (newValue) {
+                          _title = newValue!;
+                        },
                       ),
                       const SizedBox(
                         height: 20,
                         width: double.infinity,
                       ),
-                      ImageInput(_takeSavedImage),
+                      ImageInput(_takeSavedImage, notImage),
                     ],
                   ),
                 )),
