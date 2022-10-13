@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:travel/database/places_db.dart';
 import 'package:travel/models/place.dart';
 
 class PlacesProvider with ChangeNotifier {
@@ -20,5 +21,6 @@ class PlacesProvider with ChangeNotifier {
     );
     _list.add(newPlace);
     notifyListeners();
+    PlacesDB.insert('user_places', {'id': newPlace.id, 'title': newPlace.title, 'image': newPlace.image.path,},);
   }
 }
