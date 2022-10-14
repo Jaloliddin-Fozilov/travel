@@ -19,27 +19,38 @@ class PlacesListScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Consumer<PlacesProvider>(
-        builder: (context, placesProvider, child) {
-          if (placesProvider.list.isNotEmpty) {
-            return ListView.builder(
-              itemCount: placesProvider.list.length,
-              itemBuilder: (c, i) => ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: FileImage(placesProvider.list[i].image),
-                ),
-                title: Text(placesProvider.list[i].title),
+      body: FutureBuilder(
+          future:
+              Provider.of<PlacesProvider>(context, listen: false).getPlaces(),
+          builder: (ctx, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return Consumer<PlacesProvider>(
+              builder: (context, placesProvider, child) {
+                if (placesProvider.list.isNotEmpty) {
+                  return ListView.builder(
+                    itemCount: placesProvider.list.length,
+                    itemBuilder: (c, i) => ListTile(
+                      leading: CircleAvatar(
+                        backgroundImage:
+                            FileImage(placesProvider.list[i].image),
+                      ),
+                      title: Text(placesProvider.list[i].title),
+                    ),
+                  );
+                } else {
+                  return child!;
+                }
+              },
+              child: const Center(
+                child: Text(
+                    'Sayohat joylari mavjud emas, iltimos + tugamasini bosib qo\'shing'),
               ),
             );
-          } else {
-            return child!;
-          }
-        },
-        child: const Center(
-          child: Text(
-              'Sayohat joylari mavjud emas, iltimos + tugamasini bosib qo\'shing'),
-        ),
-      ),
+          }),
     );
   }
 }

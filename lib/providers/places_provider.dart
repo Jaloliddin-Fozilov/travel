@@ -21,6 +21,30 @@ class PlacesProvider with ChangeNotifier {
     );
     _list.add(newPlace);
     notifyListeners();
-    PlacesDB.insert('user_places', {'id': newPlace.id, 'title': newPlace.title, 'image': newPlace.image.path,},);
+    PlacesDB.insert(
+      'user_places',
+      {
+        'id': newPlace.id,
+        'title': newPlace.title,
+        'image': newPlace.image.path,
+      },
+    );
+  }
+
+  Future<void> getPlaces() async {
+    final placesList = await PlacesDB.getData('user_places');
+    PlaceLocation placeLocation =
+        PlaceLocation(latitude: '1', longitude: '1', address: 'address');
+    _list = placesList
+        .map(
+          (place) => Place(
+            id: place['id'],
+            title: place['title'],
+            location: placeLocation,
+            image: File(place['image']),
+          ),
+        )
+        .toList();
+    notifyListeners();
   }
 }
