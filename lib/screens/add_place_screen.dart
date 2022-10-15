@@ -1,13 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:travel/providers/places_provider.dart';
 import 'package:travel/widgets/image_input.dart';
 
 class AddPlaceScreen extends StatefulWidget {
-  AddPlaceScreen({super.key});
+  const AddPlaceScreen({super.key});
 
   static const routName = '/add-place';
 

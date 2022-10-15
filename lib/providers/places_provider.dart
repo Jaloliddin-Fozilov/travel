@@ -32,9 +32,10 @@ class PlacesProvider with ChangeNotifier {
   }
 
   Future<void> getPlaces() async {
-    final placesList = await PlacesDB.getData('user_places');
     PlaceLocation placeLocation =
         PlaceLocation(latitude: '1', longitude: '1', address: 'address');
+
+    final placesList = await PlacesDB.getData('user_places');
     _list = placesList
         .map(
           (place) => Place(
