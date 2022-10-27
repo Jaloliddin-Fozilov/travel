@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travel/providers/places_provider.dart';
 import 'package:travel/widgets/image_input.dart';
+import 'package:travel/widgets/location_input.dart';
 
 class AddPlaceScreen extends StatefulWidget {
   const AddPlaceScreen({super.key});
@@ -55,35 +56,42 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Form(
-                key: _formKey,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: 'Joy nomi',
-                          border: OutlineInputBorder(),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          decoration: const InputDecoration(
+                            labelText: 'Joy nomi',
+                            border: OutlineInputBorder(),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Iltimos, joy nomini kiring.';
+                            }
+                          },
+                          onSaved: (newValue) {
+                            _title = newValue!;
+                          },
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Iltimos, joy nomini kiring.';
-                          }
-                        },
-                        onSaved: (newValue) {
-                          _title = newValue!;
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                        width: double.infinity,
-                      ),
-                      ImageInput(_takeSavedImage, notImage),
-                    ],
-                  ),
-                )),
+                        const SizedBox(
+                          height: 20,
+                          width: double.infinity,
+                        ),
+                        ImageInput(_takeSavedImage, notImage),
+                        const SizedBox(
+                          height: 20,
+                          width: double.infinity,
+                        ),
+                        const LocationInput(),
+                      ],
+                    )),
+              ),
+            ),
           ),
           ElevatedButton(
             onPressed: _submit,

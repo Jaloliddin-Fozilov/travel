@@ -24,10 +24,22 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Gallereyega ruxsat bering</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Kameraga ruxsat bering</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Mikrafon ruxsat bering</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Manzilni olishga ruxsat bering</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Manzilni olishga ruxsat bering</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>EnableBackgroundLocationUpdates</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
