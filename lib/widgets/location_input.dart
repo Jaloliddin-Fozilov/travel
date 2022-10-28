@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:travel/helpers/location_helper.dart';
 import 'package:travel/models/place.dart';
@@ -17,10 +18,16 @@ class _LocationInputState extends State<LocationInput> {
   Future<void> _getCurrentLocation() async {
     final _locationData = await Location().getLocation();
 
+    _getLocationImage(
+      LatLng(_locationData.latitude!, _locationData.longitude!),
+    );
+  }
+
+  void _getLocationImage(LatLng location) {
     setState(() {
       _previewLocationImage = LocationHelper.getLocationImage(
-        latitude: _locationData.latitude!,
-        longtitude: _locationData.longitude!,
+        latitude: location.latitude,
+        longtitude: location.longitude,
       );
     });
   }
@@ -54,8 +61,10 @@ class _LocationInputState extends State<LocationInput> {
             ),
             ElevatedButton.icon(
               onPressed: () async {
-                final selectedLocation = await Navigator.of(context).push(
+                final selectedLocation =
+                    await Navigator.of(context).push<LatLng>(
                   MaterialPageRoute(
+                    fullscreenDialog: true,
                     builder: (ctx) => MapScreen(
                       placeLocation: PlaceLocation(
                           latitude: 41.311081,
@@ -65,6 +74,11 @@ class _LocationInputState extends State<LocationInput> {
                     ),
                   ),
                 );
+                if (selectedLocation == null) {
+                  return;
+                }
+
+                _getLocationImage(selectedLocation);
               },
               icon: const Icon(Icons.map),
               label: const Text('Manzil tanlash'),
