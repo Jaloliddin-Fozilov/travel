@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:travel/models/place.dart';
 import 'package:travel/providers/places_provider.dart';
 import 'package:travel/widgets/image_input.dart';
 import 'package:travel/widgets/location_input.dart';
@@ -18,16 +19,27 @@ class AddPlaceScreen extends StatefulWidget {
 class _AddPlaceScreenState extends State<AddPlaceScreen> {
   File? _savedImage;
   final _formKey = GlobalKey<FormState>();
+  PlaceLocation? _placeLocation;
   String _title = '';
 
   bool notImage = false;
 
+  void _takePickedLocation(double latitude, double longitude, String address) {
+    _placeLocation = PlaceLocation(
+      latitude: latitude,
+      longitude: longitude,
+      address: address,
+    );
+  }
+
   void _submit() {
     _takeSavedImage(_savedImage);
-    if (_formKey.currentState!.validate() && _savedImage != null) {
+    if (_formKey.currentState!.validate() &&
+        _savedImage != null &&
+        _placeLocation != null) {
       _formKey.currentState!.save();
       Provider.of<PlacesProvider>(context, listen: false)
-          .addPlace(_title, _savedImage!);
+          .addPlace(_title, _savedImage!, _placeLocation!);
       Navigator.of(context).pop();
     }
   }
@@ -87,7 +99,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                           height: 20,
                           width: double.infinity,
                         ),
-                        const LocationInput(),
+                        LocationInput(_takePickedLocation),
                       ],
                     )),
               ),

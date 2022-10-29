@@ -6,7 +6,8 @@ import 'package:travel/models/place.dart';
 import 'package:travel/screens/map_screen.dart';
 
 class LocationInput extends StatefulWidget {
-  const LocationInput({super.key});
+  final Function takePickedLocation;
+  const LocationInput(this.takePickedLocation, {super.key});
 
   @override
   State<LocationInput> createState() => _LocationInputState();
@@ -23,13 +24,22 @@ class _LocationInputState extends State<LocationInput> {
     );
   }
 
-  void _getLocationImage(LatLng location) {
+  void _getLocationImage(LatLng location) async {
     setState(() {
       _previewLocationImage = LocationHelper.getLocationImage(
         latitude: location.latitude,
         longtitude: location.longitude,
       );
     });
+
+    final String formattedAdress =
+        await LocationHelper.getFormattedAddress(location);
+
+    widget.takePickedLocation(
+      location.latitude,
+      location.longitude,
+      formattedAdress,
+    );
   }
 
   @override
