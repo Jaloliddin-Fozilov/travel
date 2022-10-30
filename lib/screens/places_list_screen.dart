@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travel/providers/places_provider.dart';
 import 'package:travel/screens/add_place_screen.dart';
+import 'package:travel/screens/place_details_screen.dart';
 
 class PlacesListScreen extends StatelessWidget {
   const PlacesListScreen({super.key});
@@ -40,6 +41,10 @@ class PlacesListScreen extends StatelessWidget {
                       ),
                       title: Text(placesProvider.list[i].title),
                       subtitle: Text(placesProvider.list[i].location.address),
+                      onTap: () => Navigator.of(context).pushNamed(
+                        PlaceDetailsScreen.routName,
+                        arguments: placesProvider.list[i].id,
+                      ),
                     ),
                   );
                 } else {

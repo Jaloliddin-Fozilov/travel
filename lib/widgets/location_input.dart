@@ -17,11 +17,15 @@ class _LocationInputState extends State<LocationInput> {
   String? _previewLocationImage;
 
   Future<void> _getCurrentLocation() async {
-    final _locationData = await Location().getLocation();
+    try {
+      final _locationData = await Location().getLocation();
 
-    _getLocationImage(
-      LatLng(_locationData.latitude!, _locationData.longitude!),
-    );
+      _getLocationImage(
+        LatLng(_locationData.latitude!, _locationData.longitude!),
+      );
+    } catch (e) {
+      print(e);
+    }
   }
 
   void _getLocationImage(LatLng location) async {
