@@ -14,12 +14,20 @@ class PlaceLocation {
 class Place {
   final String id;
   final String title;
+  final String description;
+  final String categoryId;
+  final double rating;
   final PlaceLocation location;
-  final File image;
+  final List<File> images;
+  final bool isFavourite;
   Place({
     required this.id,
     required this.title,
+    required this.description,
+    required this.categoryId,
+    required this.rating,
     required this.location,
-    required this.image,
+    required this.images,
+    required this.isFavourite,
   });
 }

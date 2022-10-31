@@ -37,7 +37,7 @@ class PlacesListScreen extends StatelessWidget {
                     itemBuilder: (c, i) => ListTile(
                       leading: CircleAvatar(
                         backgroundImage:
-                            FileImage(placesProvider.list[i].image),
+                            FileImage(placesProvider.list[i].images[0]),
                       ),
                       title: Text(placesProvider.list[i].title),
                       subtitle: Text(placesProvider.list[i].location.address),

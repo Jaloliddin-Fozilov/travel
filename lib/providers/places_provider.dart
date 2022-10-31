@@ -14,12 +14,17 @@ class PlacesProvider with ChangeNotifier {
     return _list.firstWhere((place) => place.id == id);
   }
 
-  void addPlace(String title, File image, PlaceLocation placeLocation) {
+  void addPlace(String title, String description, String categoryId,
+      double rating, List<File> images, PlaceLocation placeLocation) {
     Place newPlace = Place(
       id: UniqueKey().toString(),
       title: title,
+      description: description,
+      categoryId: categoryId,
+      rating: rating,
       location: placeLocation,
-      image: image,
+      images: images,
+      isFavourite: false,
     );
     _list.add(newPlace);
     notifyListeners();
@@ -28,10 +33,14 @@ class PlacesProvider with ChangeNotifier {
       {
         'id': newPlace.id,
         'title': newPlace.title,
-        'image': newPlace.image.path,
+        'description': newPlace.description,
+        'categoryId': newPlace.categoryId,
+        'rating': newPlace.rating,
+        'image': newPlace.images.map((image) => image.path).toList(),
         'location_lat': newPlace.location.latitude,
         'location_lng': newPlace.location.longitude,
         'address': newPlace.location.address,
+        'isFavourite': false,
       },
     );
   }
@@ -43,15 +52,21 @@ class PlacesProvider with ChangeNotifier {
           (place) => Place(
             id: place['id'],
             title: place['title'],
+            description: place['description'],
+            categoryId: place['categoryId'],
+            rating: place['rating'],
             location: PlaceLocation(
               latitude: place['location_lat'],
               longitude: place['location_lng'],
               address: place['address'],
             ),
-            image: File(place['image']),
+            images: [...place['images'] as List<File>],
+            isFavourite: place['isFavourite'],
           ),
         )
         .toList();
     notifyListeners();
+
+    print(_list);
   }
 }

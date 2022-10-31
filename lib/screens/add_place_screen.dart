@@ -6,6 +6,7 @@ import 'package:travel/models/place.dart';
 import 'package:travel/providers/places_provider.dart';
 import 'package:travel/widgets/image_input.dart';
 import 'package:travel/widgets/location_input.dart';
+import 'package:travel/helpers/location_helper.dart';
 
 class AddPlaceScreen extends StatefulWidget {
   const AddPlaceScreen({super.key});
@@ -38,8 +39,21 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
         _savedImage != null &&
         _placeLocation != null) {
       _formKey.currentState!.save();
-      Provider.of<PlacesProvider>(context, listen: false)
-          .addPlace(_title, _savedImage!, _placeLocation!);
+      Provider.of<PlacesProvider>(context, listen: false).addPlace(
+          _title,
+          'lorem',
+          '1',
+          4.5,
+          [
+            _savedImage!,
+            File(
+              LocationHelper.getLocationImage(
+                latitude: _placeLocation!.latitude,
+                longtitude: _placeLocation!.longitude,
+              ),
+            ),
+          ],
+          _placeLocation!);
       Navigator.of(context).pop();
     }
   }
