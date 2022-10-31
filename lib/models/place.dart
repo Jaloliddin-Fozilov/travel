@@ -18,7 +18,7 @@ class Place {
   final String categoryId;
   final double rating;
   final PlaceLocation location;
-  final List<File> images;
+  final File image;
   final bool isFavourite;
   Place({
     required this.id,
@@ -27,7 +27,7 @@ class Place {
     required this.categoryId,
     required this.rating,
     required this.location,
-    required this.images,
+    required this.image,
     required this.isFavourite,
   });
 }

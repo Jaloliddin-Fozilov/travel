@@ -39,21 +39,8 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
         _savedImage != null &&
         _placeLocation != null) {
       _formKey.currentState!.save();
-      Provider.of<PlacesProvider>(context, listen: false).addPlace(
-          _title,
-          'lorem',
-          '1',
-          4.5,
-          [
-            _savedImage!,
-            File(
-              LocationHelper.getLocationImage(
-                latitude: _placeLocation!.latitude,
-                longtitude: _placeLocation!.longitude,
-              ),
-            ),
-          ],
-          _placeLocation!);
+      Provider.of<PlacesProvider>(context, listen: false)
+          .addPlace(_title, 'lorem', '1', 4.5, _savedImage!, _placeLocation!);
       Navigator.of(context).pop();
     }
   }

@@ -8,7 +8,7 @@ class PlacesDB {
       path.join(dbPath, 'places.db'),
       onCreate: (db, version) {
         return db.execute(
-            'CREATE TABLE user_places(id TEXT PRIMARY KEY, title TEXT, description TEXT, categoryId TEXT, rating REAL, images BLOB, location_lat REAL, location_lng REAL, address TEXT)');
+            'CREATE TABLE user_places(id TEXT PRIMARY KEY, title TEXT, description TEXT, categoryId TEXT, rating REAL, image TEXT, location_lat REAL, location_lng REAL, address TEXT, isFavourite INTEGER)');
       },
       version: 1,
     );

@@ -15,7 +15,7 @@ class PlacesProvider with ChangeNotifier {
   }
 
   void addPlace(String title, String description, String categoryId,
-      double rating, List<File> images, PlaceLocation placeLocation) {
+      double rating, File image, PlaceLocation placeLocation) {
     Place newPlace = Place(
       id: UniqueKey().toString(),
       title: title,
@@ -23,7 +23,7 @@ class PlacesProvider with ChangeNotifier {
       categoryId: categoryId,
       rating: rating,
       location: placeLocation,
-      images: images,
+      image: image,
       isFavourite: false,
     );
     _list.add(newPlace);
@@ -36,11 +36,11 @@ class PlacesProvider with ChangeNotifier {
         'description': newPlace.description,
         'categoryId': newPlace.categoryId,
         'rating': newPlace.rating,
-        'image': newPlace.images.map((image) => image.path).toList(),
+        'image': newPlace.image.path,
         'location_lat': newPlace.location.latitude,
         'location_lng': newPlace.location.longitude,
         'address': newPlace.location.address,
-        'isFavourite': false,
+        'isFavourite': newPlace.isFavourite ? 1 : 0,
       },
     );
   }
@@ -60,13 +60,11 @@ class PlacesProvider with ChangeNotifier {
               longitude: place['location_lng'],
               address: place['address'],
             ),
-            images: [...place['images'] as List<File>],
-            isFavourite: place['isFavourite'],
+            image: File(place['image']),
+            isFavourite: place['isFavourite'] == 1 ? true : false,
           ),
         )
         .toList();
     notifyListeners();
-
-    print(_list);
   }
 }
