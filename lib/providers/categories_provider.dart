@@ -23,19 +23,19 @@ class CategoryProvider with ChangeNotifier {
     ),
     CategoryModel(
       id: '1',
-      color: Colors.blueGrey,
+      color: Colors.amber,
       title: 'City tours',
       icon: Icons.directions_bus,
     ),
     CategoryModel(
       id: '0',
-      color: Colors.yellowAccent,
+      color: Colors.orange,
       title: 'Hiking tips',
       icon: Icons.hiking,
     ),
     CategoryModel(
       id: '1',
-      color: Colors.deepPurple,
+      color: Colors.green,
       title: 'City tours',
       icon: Icons.directions_bus,
     ),
@@ -43,5 +43,11 @@ class CategoryProvider with ChangeNotifier {
 
   List<CategoryModel> get list {
     return [..._list];
+  }
+
+  CategoryModel findCategoryById(String id) {
+    return _list.firstWhere(
+      (category) => category.id == id,
+    );
   }
 }
