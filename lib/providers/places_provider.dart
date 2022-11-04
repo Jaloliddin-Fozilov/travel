@@ -6,12 +6,27 @@ import 'package:travel/models/place.dart';
 
 class PlacesProvider with ChangeNotifier {
   List<Place> _list = [];
+
   List<Place> get list {
     return [..._list];
   }
 
+  List<Place> get popularPlaces {
+    return _list.where((place) => place.rating >= 4.0).toList();
+  }
+
+  List<Place> getPlacesByCategoryId(String id) {
+    return _list.where((place) => place.categoryId == id).toList();
+  }
+
   Place getById(String id) {
     return _list.firstWhere((place) => place.id == id);
+  }
+
+  void toggleFavorite(String id) {
+    final index = _list.indexWhere((place) => place.id == id);
+    _list[index].isFavourite = !_list[index].isFavourite;
+    notifyListeners();
   }
 
   void addPlace(String title, String description, String categoryId,

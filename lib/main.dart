@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:travel/providers/categories_provider.dart';
 import 'package:travel/providers/places_provider.dart';
 import 'package:travel/screens/add_place_screen.dart';
+import 'package:travel/screens/category_screen.dart';
 import 'package:travel/screens/place_details_screen.dart';
 import 'package:travel/screens/places_list_screen.dart';
 
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
           routes: {
             AddPlaceScreen.routName: (ctx) => const AddPlaceScreen(),
             PlaceDetailsScreen.routName: (ctx) => const PlaceDetailsScreen(),
+            CategoryScreen.routName: (ctx) => const CategoryScreen(),
           },
         ),
       ),

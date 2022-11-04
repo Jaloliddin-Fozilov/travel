@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travel/providers/categories_provider.dart';
+import 'package:travel/screens/category_screen.dart';
 
 class HomeCategories extends StatelessWidget {
   const HomeCategories({
@@ -13,7 +14,8 @@ class HomeCategories extends StatelessWidget {
     return Row(
       children: categories
           .map((category) => GestureDetector(
-                onTap: () => Navigator.of(context).pushNamed('/details'),
+                onTap: () => Navigator.of(context)
+                    .pushNamed(CategoryScreen.routName, arguments: category.id),
                 child: Container(
                   height: 80,
                   padding: const EdgeInsets.all(10),

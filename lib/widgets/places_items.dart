@@ -4,7 +4,9 @@ import 'package:travel/providers/places_provider.dart';
 import 'package:travel/widgets/place_item.dart';
 
 class PlacesItems extends StatelessWidget {
+  final bool isPopular;
   const PlacesItems({
+    required this.isPopular,
     Key? key,
   }) : super(key: key);
 
@@ -24,11 +26,17 @@ class PlacesItems extends StatelessWidget {
                 return SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
-                    children: placesProvider.list
-                        .map(
-                          (place) => PlaceItem(id: place.id),
-                        )
-                        .toList(),
+                    children: isPopular
+                        ? placesProvider.popularPlaces
+                            .map(
+                              (place) => PlaceItem(id: place.id),
+                            )
+                            .toList()
+                        : placesProvider.list
+                            .map(
+                              (place) => PlaceItem(id: place.id),
+                            )
+                            .toList(),
                   ),
                 );
               } else {

@@ -19,7 +19,7 @@ class Place {
   final double rating;
   final PlaceLocation location;
   final File image;
-  final bool isFavourite;
+  late bool isFavourite;
   Place({
     required this.id,
     required this.title,

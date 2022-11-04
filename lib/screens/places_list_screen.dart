@@ -37,26 +37,33 @@ class PlacesListScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 10),
-          const WelcomeText(),
-          const SizedBox(height: 10),
-          HomeWidgetTiitleAndButton(
-            title: 'Category',
-            function: () {},
-            child: const SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: HomeCategories(),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 10),
+            const WelcomeText(),
+            const SizedBox(height: 10),
+            HomeWidgetTiitleAndButton(
+              title: 'Category',
+              function: () {},
+              child: const SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: HomeCategories(),
+              ),
             ),
-          ),
-          HomeWidgetTiitleAndButton(
-            title: 'Recomendation',
-            function: () {},
-            child: const PlacesItems(),
-          ),
-        ],
+            HomeWidgetTiitleAndButton(
+              title: 'Recomendation',
+              function: () {},
+              child: const PlacesItems(isPopular: false),
+            ),
+            HomeWidgetTiitleAndButton(
+              title: 'Popular Places',
+              function: () {},
+              child: const PlacesItems(isPopular: true),
+            ),
+          ],
+        ),
       ),
     );
   }
