@@ -1,12 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:travel/models/category_model.dart';
-import 'package:travel/providers/categories_provider.dart';
-import 'package:travel/providers/places_provider.dart';
 import 'package:travel/screens/add_place_screen.dart';
-import 'package:travel/screens/place_details_screen.dart';
 import 'package:travel/widgets/home_categories.dart';
 import 'package:travel/widgets/home_widget_title_and_button.dart';
 import 'package:travel/widgets/places_items.dart';
